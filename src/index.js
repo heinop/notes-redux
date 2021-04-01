@@ -1,47 +1,36 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-// import App from './App';
 import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import App from './App';
 import noteReducer from './reducers/noteReducer'
+import './index.css'
 
 const store = createStore(noteReducer)
 
-store.dispatch({
-  type: 'NEW_NOTE',
-  data: {
-    content: 'the app state is in redux store',
-    important: true,
-    id: 1
-  }
-})
-
-store.dispatch({
-  type: 'NEW_NOTE',
-  data: {
-    content: 'state changes are made with actions',
-    important: false,
-    id: 2
-  }
-})
-
-const App = () => {
-  return(
-    <div>
-      <ul>
-        {store.getState().map(note=>
-          <li key={note.id}>
-            {note.content} <strong>{note.important ? 'important' : ''}</strong>
-          </li>
-        )}
-        </ul>
-    </div>
-  )
-}
-
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
+
+// store.dispatch({
+//   type: 'NEW_NOTE',
+//   data: {
+//     content: 'the app state is in redux store',
+//     important: true,
+//     id: 1
+//   }
+// })
+
+// store.dispatch({
+//   type: 'NEW_NOTE',
+//   data: {
+//     content: 'state changes are made with actions',
+//     important: false,
+//     id: 2
+//   }
+// })
+
+
